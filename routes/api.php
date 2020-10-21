@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+// Tweets routes
 Route::get('/v1/tweets', 'App\Http\Controllers\TweetsController@getAll');
 
 Route::get('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@getOne');
@@ -28,6 +29,23 @@ Route::post('/v1/tweets', 'App\Http\Controllers\TweetsController@store');
 Route::put('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@update');
 
 Route::delete('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@destroy');
+
+
+//User routes
+Route::post('/v1/users/register', 'App\Http\Controllers\UsersController@register');
+
+Route::post('/v1/users/login', 'App\Http\Controllers\UsersController@login');
+
+Route::get('/v1/users', 'App\Http\Controllers\UsersController@getAll');
+
+Route::get('/v1/users/{id}', 'App\Http\Controllers\UsersController@getOne');
+
+Route::post('/v1/users', 'App\Http\Controllers\UsersController@store');
+
+Route::put('/v1/users/{id}', 'App\Http\Controllers\UsersController@update');
+
+Route::delete('/v1/users/{id}', 'App\Http\Controllers\UsersController@destroy');
+
 
 
 Route::fallback(function(){

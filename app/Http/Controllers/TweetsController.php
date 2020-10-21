@@ -10,17 +10,6 @@ use App\Http\Resources\Tweet as TweetResource;
 class TweetsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
-      $tweets = Tweet::get();
-      return TweetResource::collection($tweets);
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,8 +20,21 @@ class TweetsController extends Controller
       if(!$tweet){
         return get_error(404);
       }
-      return TweetResource::collection($tweet);
+      return new TweetResource($tweet);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAll()
+    {
+      $tweets = Tweet::get();
+      return TweetResource::collection($tweets);
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -43,9 +45,6 @@ class TweetsController extends Controller
     public function store(Request $request)
     {
       $tweet = new Tweet;
-      if(!$tweet){
-        return get_error(404);
-      }
       $tweet->author_id = $request->input('author_id');
       $tweet->text = $request->input('text');
 

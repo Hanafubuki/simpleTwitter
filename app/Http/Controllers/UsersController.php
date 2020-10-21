@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Tweet;
+use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -11,19 +16,18 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function login(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+      $user = User::where('username', $request->input('username'));
+      if(!$user){
+        return get_error(404);
+      }
+      if (Hash::check($request->input('password'), $user->password)) {
+        // The passwords match, do login
+        Auth::login($user);
+        return new UserResource($user);
+      }
+      return new get_error(401, 'Passwords doesn\'t match');
     }
 
     /**
@@ -32,32 +36,51 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function register(Request $request)
     {
-        //
+      if($this->usernameAlreadyInUse){
+        return get_error(400, 'Username already in use');
+      }
+      $user = new User;
+      $user->name = $request->input('name');
+      $user->email = $request->input('email');
+      $user->username = $request->input('username');
+      $user->password = Hash::make($request->input('password'));
+
+      if($user->save()){
+        // Do login
+        Auth::login($user);
+        return new UserResource($user);
+      }
+      return get_error();
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for creating a new resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getOne($id)
     {
-        //
+      $user = User::find($id);
+      if(!$user){
+        return get_error(404);
+      }
+      //return response()->json([$user->tweet]);
+      return new UserResource($user);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display a listing of the resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getAll()
     {
-        //
+      $users = User::get();
+      return UserResource::collection($users);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -68,7 +91,18 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $user = User::findOrFail($id);
+      if(!$user){
+        return get_error(404);
+      }
+      if($request->input('email')) $user->email = $request->input('email');
+      if($request->input('username')) $user->username = $request->input('username');
+      if($request->input('password')) $user->password = Hash::make($request->input('password'));
+
+      if($user->save()){
+        return new UserResource($user);
+      }
+      return get_error();
     }
 
     /**
@@ -79,6 +113,10 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $user = User::findOrFail($id);
+      if(!$user){
+        return get_error(404);
+      }
+      $user->delete();
     }
 }
