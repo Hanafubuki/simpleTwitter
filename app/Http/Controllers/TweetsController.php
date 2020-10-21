@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Tweet;
+use App\Http\Resources\Tweet as TweetResource;
 
 class TweetsController extends Controller
 {
@@ -11,9 +14,10 @@ class TweetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getAll()
     {
-        //
+      $tweets = Tweet::get();
+      return TweetResource::collection($tweets);
     }
 
     /**
@@ -21,9 +25,13 @@ class TweetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getOne($id)
     {
-        //
+      $tweet = Tweet::find($id);
+      if(!$tweet){
+        return get_error(404);
+      }
+      return TweetResource::collection($tweet);
     }
 
     /**
@@ -34,29 +42,17 @@ class TweetsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+      $tweet = new Tweet;
+      if(!$tweet){
+        return get_error(404);
+      }
+      $tweet->author_id = $request->input('author_id');
+      $tweet->text = $request->input('text');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+      if($tweet->save()){
+        return new TweetResource($tweet);
+      }
+      return get_error();
     }
 
     /**
@@ -68,7 +64,16 @@ class TweetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tweet = Tweet::findOrFail($id);
+        if(!$tweet){
+          return get_error(404);
+        }
+        $tweet->text = $request->input('text');
+
+        if($tweet->save()){
+          return new TweetResource($tweet);
+        }
+        return get_error();
     }
 
     /**
@@ -79,6 +84,10 @@ class TweetsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tweet = Tweet::findOrFail($id);
+        if(!$tweet){
+          return get_error(404);
+        }
+        $tweet->delete();
     }
 }

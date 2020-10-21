@@ -17,3 +17,23 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/v1/tweets', 'App\Http\Controllers\TweetsController@getAll');
+
+Route::get('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@getOne');
+
+Route::post('/v1/tweets', 'App\Http\Controllers\TweetsController@store');
+
+Route::put('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@update');
+
+Route::delete('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@destroy');
+
+
+Route::fallback(function(){
+    return response()->json(
+      [
+        'message' => 'Page Not Found.'
+      ],
+      404);
+});

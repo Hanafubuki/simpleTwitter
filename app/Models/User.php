@@ -40,4 +40,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+    * Create one to many relationship with Tweet Class.
+    * author_id belongs to Tweet Class and id to User Clas.
+    **/
+    public function tweet()
+    {
+        return $this->hasMany('App\Models\Tweet', 'author_id', 'id');
+    }
 }
