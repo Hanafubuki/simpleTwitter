@@ -44,7 +44,7 @@ php artisan test
 ## Project Structure
 Used Laravel's official package [Passport](https://laravel.com/docs/8.x/passport) for user authentication.
 
-Created verification to check if user has authorization to access the APIs in the routes.
+Created verification in the routes to check if user has authorization to access the APIs.
 
 PSR-4: Autoloads factories, seeders and tests and, added autoload for helper functions.
 
