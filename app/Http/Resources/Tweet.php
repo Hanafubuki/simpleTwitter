@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\User as UserResource;
 
 class Tweet extends JsonResource
 {
@@ -14,6 +15,13 @@ class Tweet extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        //return parent::toArray($request);
+        return [
+          'id' => $this->id,
+          'text' => $this->text,
+          'author' => UserResource::make($this->author),
+          'created_at' => $this->created_at,
+          'updated_at' => $this->updated_at,
+      ];
     }
 }

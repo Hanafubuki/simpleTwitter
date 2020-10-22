@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
 
 class Handler extends ExceptionHandler
 {
@@ -32,6 +33,7 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+      
     }
+
 }

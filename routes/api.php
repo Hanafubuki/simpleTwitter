@@ -14,40 +14,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+/*
+* Public routes
+* Transform any return data into JSON
+* CORS implementation
+*/
+Route::group(['middleware' => ['cors', 'json.response']], function () {
+    //Authorization
+    Route::post('/v1/auth/register', 'App\Http\Controllers\AuthsController@register');
+    Route::post('/v1/auth/login', 'App\Http\Controllers\AuthsController@login');
 });
 
 
-// Tweets routes
-Route::get('/v1/tweets', 'App\Http\Controllers\TweetsController@getAll');
+/*
+* Protected routes that user needs to be logged in (pass login token)
+*/
+Route::middleware('auth:api')->group(function () {
+    //Authorization
+    Route::post('/v1/auth/logout', 'App\Http\Controllers\AuthsController@logout');
 
-Route::get('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@getOne');
+    //Tweets
+    Route::get('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@getFromUser');
+    Route::get('/v1/tweets', 'App\Http\Controllers\TweetsController@getAll');
+    Route::post('/v1/tweets', 'App\Http\Controllers\TweetsController@store');
+    Route::put('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@update');
+    Route::delete('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@destroy');
 
-Route::post('/v1/tweets', 'App\Http\Controllers\TweetsController@store');
-
-Route::put('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@update');
-
-Route::delete('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@destroy');
-
-
-//User routes
-Route::post('/v1/users/register', 'App\Http\Controllers\UsersController@register');
-
-Route::post('/v1/users/login', 'App\Http\Controllers\UsersController@login');
-
-Route::get('/v1/users', 'App\Http\Controllers\UsersController@getAll');
-
-Route::get('/v1/users/{id}', 'App\Http\Controllers\UsersController@getOne');
-
-Route::post('/v1/users', 'App\Http\Controllers\UsersController@store');
-
-Route::put('/v1/users/{id}', 'App\Http\Controllers\UsersController@update');
-
-Route::delete('/v1/users/{id}', 'App\Http\Controllers\UsersController@destroy');
+    //Users
+    Route::get('/v1/users/{id}', 'App\Http\Controllers\UsersController@getOne');
+    Route::put('/v1/users/{id}', 'App\Http\Controllers\UsersController@update');
+    Route::delete('/v1/users/{id}', 'App\Http\Controllers\UsersController@destroy');
+});
 
 
-
+/*
+* Fallback message to api not found
+*/
 Route::fallback(function(){
     return response()->json(
       [
