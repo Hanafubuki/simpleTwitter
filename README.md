@@ -8,7 +8,7 @@
 - **[Tests](#tests)**
 - **[Project Structure](#project-structure)**
 - **[Requirements Achieved](#requirements-achieved)**
-- **[Things I would like to do](#improvements)**
+- **[Things I would like to do](#things-i-would-like-to-do)**
 
 
 ## Introduction
@@ -92,7 +92,7 @@ tests/Feature
     * Any user can read all messages
 
 
-## Improvements (Things I would like to do)
+## Things I would like to do
 Create service/action classes instead of just one controller class for user and tweet, to consider scalability.
 
 
