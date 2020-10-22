@@ -20,7 +20,6 @@ function get_error($code = 400, $data_message = null) {
   }
 
   $data = array(
-          'code'      => $code,
           'message'   => $message,
           'data'      => $data_message
       );

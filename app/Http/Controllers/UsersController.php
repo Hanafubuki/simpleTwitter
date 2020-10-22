@@ -20,7 +20,7 @@ class UsersController extends Controller
     {
       $user = User::find($id);
       if(!$user){
-        return get_error(404);
+        return response(get_error(404),404);
       }
       return new UserResource($user);
     }
@@ -39,18 +39,18 @@ class UsersController extends Controller
 
       //Check if user exists/Authorization token is correct
       if(!$user){
-        return get_error(404);
+        return response(get_error(404),404);
       }
 
       //Check if user updating is the same user logged in
       if(!isCorrectUserApi($id)){
-        return get_error(401);
+        return response(get_error(401),401);
       }
 
       //Check if all the user information is entered correct
       $validator = $this->updateValidator($request->all());
       if($validator->fails() OR (!Hash::check($request['current_password'], $user->password))){
-          return get_error(400, $validator->errors()->all());
+          return response(get_error(400, $validator->errors()->all()),400);
       }
 
       $user->name = $request['name'];
@@ -72,12 +72,12 @@ class UsersController extends Controller
 
       //Check if user exists
       if(!$user){
-        return get_error(404);
+        return response(get_error(404),404);
       }
 
       //Check if user deleting is the same user logged in
       if(!isCorrectUserApi($id)){
-        return get_error(401);
+        return response(get_error(401),401);
       }
 
       //Delete tweets from user
@@ -87,7 +87,7 @@ class UsersController extends Controller
       $token = auth('api')->user()->token()->revoke();
       $user->delete();
 
-      return response()->json(204);
+      return 204;
     }
 
 

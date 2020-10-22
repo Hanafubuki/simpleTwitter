@@ -21,13 +21,13 @@ class AuthsController extends Controller
       //Check if all the login information is entered
       $validator = $this->loginValidator($request->all());
       if($validator->fails()){
-          return get_error(400, $validator->errors()->all());
+          return response(get_error(400, $validator->errors()->all()), 400);
       }
 
       //Check if username exists
       $user = User::where('username', $request->input('username'))->first();
       if(!$user){
-        return get_error(404);
+        return response(get_error(404), 404);
       }
 
       //Check if passwords match
@@ -54,7 +54,7 @@ class AuthsController extends Controller
       //Check if all the user information is entered correct
       $validator = $this->regValidator($request->all());
       if($validator->fails()){
-          return get_error(400, $validator->errors()->all());
+          return response(get_error(400, $validator->errors()->all()), 400);
       }
 
       //Add to the Models
