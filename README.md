@@ -1,4 +1,4 @@
-# Simple Twitter
+# Simple Tweet
 
 
 ## Table of Contents
@@ -13,7 +13,7 @@
 
 
 ## Introduction
-Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature. 
+Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature. Created with Laravel and MySQL.
 
 
 ## Technologies
