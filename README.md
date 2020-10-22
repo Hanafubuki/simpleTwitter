@@ -33,8 +33,6 @@ User: app/Helpers/userHelper.php
 #### Tests, Factories, Seeder
 database/factories
 
-database/factories
-
 database/seeders
 
 tests/Feature
