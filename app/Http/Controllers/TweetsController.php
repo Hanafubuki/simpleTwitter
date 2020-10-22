@@ -9,7 +9,7 @@ use App\Http\Resources\Tweet as TweetResource;
 class TweetsController extends Controller
 {
     /**
-     * Show the form for creating a new resource.
+     * Get all tweets from user id
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,7 +23,7 @@ class TweetsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display all tweets.
      *
      * @return \Illuminate\Http\Response
      */
@@ -36,7 +36,7 @@ class TweetsController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created tweet in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -54,7 +54,7 @@ class TweetsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update tweet.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -76,7 +76,7 @@ class TweetsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove tweet from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

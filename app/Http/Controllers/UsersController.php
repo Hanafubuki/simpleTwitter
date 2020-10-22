@@ -14,7 +14,7 @@ class UsersController extends Controller
     /**
      * Get information from user
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\User
      */
     public function getOne($id)
     {
@@ -31,7 +31,7 @@ class UsersController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\User
      */
     public function update(Request $request, $id)
     {
