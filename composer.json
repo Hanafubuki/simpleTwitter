@@ -64,6 +64,14 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "first-initialization": [
+            "@composer install",
+            "npm install && npm run dev",
+            "@composer require laravel/passport",
+            "@php artisan migrate",
+            "@php artisan passport:install",
+            "php artisan key:generate"
         ]
     }
 }
