@@ -47,6 +47,15 @@ Check if user has authorization to access the APIs with verification in the rout
 PSR-4: Autoloads factories, seeders and tests and, added autoload for helper functions.
 Used DRY principles.
 
+## Models
+User: app/Models/User.php
+Tweet: app/Models/Tweet.php
+
+## Controllers
+Authorization Controller: app/Http/Controllers/AuthsController.php
+User Controller: app/Http/Controllers/UsersController.php
+Tweet Controller: app/Http/Controllers/TweetsController.php
+
 ### Middlewares
 Transform json automatically in return methods: app/Http/Middleware/ForceJsonResponse.php
 
