@@ -8,7 +8,6 @@
 - **[Tests](#tests)**
 - **[Project Structure](#project-structure)**
 - **[Requirements Achieved](#requirements-achieved)**
-- **[Requirements not completed](#requirements-not-completed)**
 - **[Things I would like to do](#improvements)**
 
 
@@ -28,10 +27,10 @@ To run this project:
 2. cd simpleTwitter
 3. composer install
 4. npm install && npm run dev
-5. Create a database named "twitter" inside your MySQL Database *
+5. Create a database named "linkx" inside your MySQL Database *
 5. php artisan migrate
 
-* In case you don't have MySQL/PHP installed, I recommend using XAMPP for a quick setup.
+*In case you don't have MySQL/PHP installed, I recommend using XAMPP for a quick setup.
 
 
 ## Tests
@@ -42,11 +41,11 @@ php artisan db:seed
 php artisan test
 
 
-
-
 ## Project Structure
-### Models
-
+Used Laravel's official package [Passport](https://laravel.com/docs/8.x/passport) for user authentication.
+Check if user has authorization to access the APIs with verification in the routes.
+PSR-4: Autoloads factories, seeders and tests and, added autoload for helper functions.
+Used DRY principles.
 
 ### Middlewares
 Transform json automatically in return methods: app/Http/Middleware/ForceJsonResponse.php
@@ -65,6 +64,18 @@ database/seeders
 
 tests/Feature
 
-## Laravel
 
-- **[Documentation](https://laravel.com/docs)**
+## Requirements Achieved
+* Architectural design diagram of the solution
+* Minimal backend design that achieves two things:
+    * Any user can create a public message
+    * Any user can read all messages
+
+
+## Improvements (Things I would like to do)
+Create service/action classes instead of just one controller class for user and tweet, to consider scalability.
+
+
+## Sources
+- **[Assignment](https://github.com/progress-tech-assignments/msg-rw-Hanafubuki/blob/master/README_assignment.md)**
+- **[Laravel Documentation](https://laravel.com/docs)**

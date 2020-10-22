@@ -37,15 +37,8 @@ class UsersController extends Controller
     {
       $user = User::findOrFail(auth('api')->user()->id);
 
-      //Check if user exists/Authorization token is correct
-      if(!$user){
-        return response(get_error(404),404);
-      }
-
-      //Check if user updating is the same user logged in
-      if(!isCorrectUserApi($id)){
-        return response(get_error(401),401);
-      }
+      $notCorrectUser = $this->checkCorrectUser($user, $id);
+      if($notCorrectUser) return $notCorrectUser;
 
       //Check if all the user information is entered correct
       $validator = $this->updateValidator($request->all());
@@ -70,15 +63,8 @@ class UsersController extends Controller
     {
       $user = User::findOrFail(auth('api')->user()->id);
 
-      //Check if user exists
-      if(!$user){
-        return response(get_error(404),404);
-      }
-
-      //Check if user deleting is the same user logged in
-      if(!isCorrectUserApi($id)){
-        return response(get_error(401),401);
-      }
+      $notCorrectUser = $this->checkCorrectUser($user, $id);
+      if($notCorrectUser) return $notCorrectUser;
 
       //Delete tweets from user
       $user->tweet()->where('author_id', $id)->delete();
@@ -89,8 +75,6 @@ class UsersController extends Controller
 
       return 204;
     }
-
-
 
 
     /**
@@ -107,6 +91,27 @@ class UsersController extends Controller
             'current_password' => ['required'],
             'password' => ['required', 'min:8','regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[@&!$#%]).*$/', 'confirmed'],
         ]);
+    }
+
+
+    /**
+     * Check if user with authorization code exists and if is trying to modify their own data
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function checkCorrectUser($user, $id){
+      //Check if user exists/Authorization token is correct
+      if(!$user){
+        return response(get_error(404),404);
+      }
+
+      //Check if user updating is the same user logged in
+      if(!isCorrectUserApi($id)){
+        return response(get_error(401),401);
+      }
+
+      return false;
+
     }
 
 }
