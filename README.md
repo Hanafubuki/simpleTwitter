@@ -1,4 +1,4 @@
-# Simple Tweet
+# Simple Twitter
 
 
 ## Table of Contents
@@ -13,7 +13,7 @@
 
 
 ## Introduction
-Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature. Created with Laravel and MySQL.
+Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature.
 
 
 ## Technologies
@@ -24,7 +24,7 @@ Cloud-based backend service that emulates functionality similar to Twitter's Twe
 
 ## Setup
 To run this project:
-1. Clone this project: git https://github.com/Hanafubuki/simpleTwitter.git
+1. Clone this project: git clone https://github.com/Hanafubuki/simpleTwitter.git
 2. cd simpleTwitter
 3. composer install
 4. npm install && npm run dev
