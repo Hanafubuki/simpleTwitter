@@ -16,9 +16,6 @@ php artisan test
 
 
 ## About Project
-### Process
-Created diagrams
-Created
 
 ### Added extra data:
 #### Middlewares
