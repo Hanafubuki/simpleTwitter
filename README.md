@@ -49,11 +49,14 @@ Used DRY principles.
 
 ## Models
 User: app/Models/User.php
+
 Tweet: app/Models/Tweet.php
 
 ## Controllers
 Authorization Controller: app/Http/Controllers/AuthsController.php
+
 User Controller: app/Http/Controllers/UsersController.php
+
 Tweet Controller: app/Http/Controllers/TweetsController.php
 
 ### Middlewares
