@@ -25,13 +25,10 @@ Cloud-based backend service that emulates functionality similar to Twitter's Twe
 To run this project:
 1. Clone this project: git clone https://github.com/Hanafubuki/simpleTwitter.git
 2. cd simpleTwitter
-//3. composer install
-//4. npm install && npm run dev
-5. Make a copy of .env.example file and create a new file as .env
-6. Create a database named "linkx" inside your MySQL Database *
-//7. php artisan migrate
-7. composer run-script first-initialization
-8. php artisan serve
+3. Make a copy of .env.example file and create a new file as .env
+4. Create a database named "linkx" inside your MySQL Database *
+5. composer run-script first-initialization
+6. php artisan serve
 
 *In case you don't have MySQL/PHP installed, I recommend using XAMPP for a quick setup.
 
