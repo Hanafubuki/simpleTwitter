@@ -20,7 +20,7 @@ php artisan test
 Created diagrams
 Created
 
-###Added extra data:
+### Added extra data:
 #### Middlewares
 Transform json automatically in return methods: app/Http/Middleware/ForceJsonResponse.php
 Accept CORS: app/Http/Middleware/ForceJsonResponse.php
