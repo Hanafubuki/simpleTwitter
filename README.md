@@ -50,7 +50,7 @@ php artisan test
 
 
 ## Project Structure
-<p align="center"><img src="ClassDiagram.png" width="500"></p>
+<p align="center"><img src="ClassDiagram.png" width="600"></p>
 
 Used Laravel's official package [Passport](https://laravel.com/docs/8.x/passport) and header-based Token Bearer authentication scheme for user authentification.
 
