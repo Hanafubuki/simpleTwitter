@@ -1918,7 +1918,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      tweet: ''
+      tweet: {
+        text: ''
+      }
     };
   },
   methods: {
@@ -1926,14 +1928,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var token = this.$store.state.token;
+
+      if (this.tweet == '') {
+        return;
+      }
+
       axios.post('/api/v1/tweets/', this.tweet, {
         headers: {
           'Authorization': "Bearer ".concat(token)
         }
       }).then(function (res) {
+        _this.tweet.text = "";
+
         _this.$emit('updatePosts');
       })["catch"](function (err) {
-        _this.errors = err.response.data.data;
+        console.log(err.response.data);
       });
     }
   }
@@ -1999,10 +2008,18 @@ Vue.component('Posts', __webpack_require__(/*! ./Posts.vue */ "./resources/js/co
   data: function data() {
     return {
       logged_in: false,
-      posts: []
+      posts: '',
+      next_page: ''
     };
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['token']),
+  mounted: function mounted() {
+    var stored = localStorage['token'];
+
+    if (stored) {
+      this.$store.commit("changeToken", stored);
+    }
+  },
   watch: {
     token: function token(_token) {
       this.getPosts();
@@ -2012,8 +2029,11 @@ Vue.component('Posts', __webpack_require__(/*! ./Posts.vue */ "./resources/js/co
     getPosts: function getPosts() {
       var _this = this;
 
+      var page_url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var vm = this;
       var token = this.$store.state.token;
-      fetch('/api/v1/tweets', {
+      page_url = page_url || '/api/v1/tweets';
+      fetch(page_url, {
         headers: {
           'Authorization': "Bearer ".concat(token)
         }
@@ -2024,12 +2044,46 @@ Vue.component('Posts', __webpack_require__(/*! ./Posts.vue */ "./resources/js/co
           return;
         }
 
-        _this.logged_in = true;
-        _this.posts = res.data;
+        _this.updateStatus(res);
       })["catch"](function (err) {
         console.log(err);
         console.log(err.response.data);
       });
+    },
+    updateStatus: function updateStatus(res) {
+      this.logged_in = true;
+
+      if (this.posts.length == 0) {
+        this.posts = res.data;
+      } else {
+        for (var i = 0; i < res.data.length; i++) {
+          this.posts.push(res.data[i]);
+        }
+      }
+
+      ;
+      this.next_page = JSON.parse(JSON.stringify(res.links)).next;
+      this.scroll();
+    },
+    scroll: function scroll() {
+      var _this2 = this;
+
+      window.onscroll = function () {
+        var bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+
+        if (bottomOfWindow) {
+          var vm = _this2;
+          var page_url = _this2.next_page;
+
+          if (page_url !== null) {
+            _this2.getPosts(page_url);
+          }
+        }
+      };
+    },
+    updatePosts: function updatePosts() {
+      this.posts = '';
+      this.getPosts();
     },
     logout: function logout() {
       this.posts = [];
@@ -2099,6 +2153,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/v1/auth/login/', this.user).then(function (res) {
         _this.$store.commit("changeToken", res.data.token);
 
+        localStorage['token'] = res.data.token;
         $('#Login').modal('hide');
       })["catch"](function (err) {
         _this.errors = err.response.data.data;
@@ -2174,6 +2229,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/v1/auth/register/', this.user).then(function (res) {
         _this.$store.commit("changeToken", res.data.token);
 
+        localStorage['token'] = res.data.token;
         $('#Register').modal('hide');
       })["catch"](function (err) {
         _this.errors = err.response.data.data;
@@ -38482,8 +38538,25 @@ var render = function() {
     { staticClass: "d-flex flex-column justify-content-center mb-2" },
     [
       _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.tweet.text,
+            expression: "tweet.text"
+          }
+        ],
         staticClass: "form-control",
-        attrs: { rows: "3", placeholder: "Say something!" }
+        attrs: { rows: "3", placeholder: "Say something!" },
+        domProps: { value: _vm.tweet.text },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.tweet, "text", $event.target.value)
+          }
+        }
       }),
       _vm._v(" "),
       _c(
@@ -38579,7 +38652,7 @@ var render = function() {
             ? _c("CreatePost", {
                 on: {
                   updatePosts: function($event) {
-                    return _vm.getPosts()
+                    return _vm.updatePosts()
                   }
                 }
               })

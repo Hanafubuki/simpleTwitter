@@ -53,6 +53,7 @@ export default {
       axios.post('/api/v1/auth/register/',this.user
                   ).then(res => {
                     this.$store.commit("changeToken", res.data.token);
+                    localStorage['token'] = res.data.token;
                     $('#Register').modal('hide');
                   }).catch(err => {
                     this.errors = err.response.data.data;

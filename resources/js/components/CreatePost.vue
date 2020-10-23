@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column justify-content-center mb-2">
-    <textarea class="form-control" rows="3" placeholder="Say something!"></textarea>
+    <textarea class="form-control" rows="3" placeholder="Say something!" v-model="tweet.text"></textarea>
     <button class="btn btn-primary" @click="tweetPost">Tweet</button>
   </div>
 </template>
@@ -9,21 +9,27 @@
 export default {
   data() {
     return{
-      tweet: '',
+      tweet: {
+        text: '',
+      },
     }
   },
 
   methods:{
     tweetPost(){
       let token = this.$store.state.token;
+      if(this.tweet == ''){
+        return;
+      }
       axios.post('/api/v1/tweets/',this.tweet,{
                   headers: {
                     'Authorization': `Bearer ${token}`
                   }
                 }).then(res => {
+                    this.tweet.text = "";
                     this.$emit('updatePosts');
                   }).catch(err => {
-                    this.errors = err.response.data.data;
+                    console.log(err.response.data)
                   });
     }
   },

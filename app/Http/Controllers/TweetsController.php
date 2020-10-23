@@ -15,7 +15,7 @@ class TweetsController extends Controller
      */
     public function getFromUser($id)
     {
-      $tweet = Tweet::where('author_id',$id)->get();
+      $tweet = Tweet::where('author_id',$id)->orderBy('created_at', 'desc')->paginate(10);
       if(count($tweet) == 0){
         return get_error(404);
       }
@@ -29,7 +29,7 @@ class TweetsController extends Controller
      */
     public function getAll()
     {
-      $tweets = Tweet::get();
+      $tweets = Tweet::orderBy('created_at', 'desc')->paginate(10);
       return TweetResource::collection($tweets);
     }
 
