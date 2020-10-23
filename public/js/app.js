@@ -2003,8 +2003,6 @@ Vue.component('Posts', __webpack_require__(/*! ./Posts.vue */ "./resources/js/co
     };
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['token']),
-  mounted: function mounted() {//this.getPosts();
-  },
   watch: {
     token: function token(_token) {
       this.getPosts();

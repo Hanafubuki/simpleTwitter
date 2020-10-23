@@ -24,9 +24,6 @@ export default {
   },
   computed: mapState(['token']),
 
-  mounted() {
-    //this.getPosts();
-  },
   watch: {
     token(token){
       this.getPosts();
