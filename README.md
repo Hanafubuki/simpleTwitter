@@ -112,5 +112,5 @@ Improve frontend to apply all functionalities.
 
 
 ## Sources
-- **[Assignment](https://github.com/progress-tech-assignments/msg-rw-Hanafubuki/blob/master/README_assignment.md)**
+- **[Assignment](README_assignment.md)**
 - **[Laravel Documentation](https://laravel.com/docs)**
