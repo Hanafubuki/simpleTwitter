@@ -12,10 +12,11 @@
 
 
 ## Introduction
-Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature.
+Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature. Has a simple and basic frontend implementation to show the functionality.
 
 
 ## Technologies
+- VueJs 2.6.12
 - PHP 7.3.1
 - Laravel 8
 - MySQL 8.0.2
@@ -42,7 +43,7 @@ php artisan test
 
 
 ## Project Structure
-Used Laravel's official package [Passport](https://laravel.com/docs/8.x/passport) for user authentication.
+Used Laravel's official package [Passport](https://laravel.com/docs/8.x/passport) and header-based Token Bearer authentication scheme for user authentification.
 
 Created verification in the routes to check if user has authorization to access the APIs.
 
@@ -83,6 +84,9 @@ database/factories
 database/seeders
 
 tests/Feature
+
+### Frontend code
+VueJs code can be found here: resources/js/components
 
 
 ## Requirements Achieved
