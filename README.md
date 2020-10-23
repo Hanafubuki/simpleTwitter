@@ -99,6 +99,8 @@ VueJs code can be found here: resources/js/components
 ## Things I would like to do
 Create service/action classes instead of just one controller class for user and tweet, to consider scalability.
 
+Improve frontend to apply all functionalities.
+
 
 ## Sources
 - **[Assignment](https://github.com/progress-tech-assignments/msg-rw-Hanafubuki/blob/master/README_assignment.md)**
