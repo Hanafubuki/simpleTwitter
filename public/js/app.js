@@ -2151,12 +2151,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/api/v1/auth/login/', this.user).then(function (res) {
+        console.log(res);
+
         _this.$store.commit("changeToken", res.data.token);
 
         localStorage['token'] = res.data.token;
         $('#Login').modal('hide');
       })["catch"](function (err) {
-        _this.errors = err.response.data.data;
+        console.log(err.response);
+        _this.errors = err.response.data;
       });
     }
   }
@@ -2271,7 +2274,9 @@ Vue.component('Login', __webpack_require__(/*! ./User/Login.vue */ "./resources/
   props: ['logged_in'],
   data: function data() {
     return {
-      token: ''
+      request: {
+        token: ''
+      }
     };
   },
   methods: {
@@ -2279,17 +2284,19 @@ Vue.component('Login', __webpack_require__(/*! ./User/Login.vue */ "./resources/
       var _this = this;
 
       var token = this.$store.state.token;
-      fetch('/api/v1/auth/logout', {
+      this.request.token = token;
+      axios.post('/api/v1/auth/logout', this.request, {
         headers: {
           'Authorization': "Bearer ".concat(token)
         }
       }).then(function (res) {
-        return res.json();
-      }).then(function (res) {
         _this.$store.commit("changeToken", '');
 
         _this.$emit('logoutEvent');
+
+        localStorage['token'] = '';
       })["catch"](function (err) {
+        console.log(err.response);
         _this.errors = err.response.data.data;
       });
     }

@@ -37,7 +37,7 @@ class AuthsController extends Controller
         $response = ['token' => $token];
         return response($response, 200);
       }
-      return get_error(401, 'Passwords doesn\'t match');
+      return response(get_error(401, 'Passwords doesn\'t match'), 401);
     }
 
 

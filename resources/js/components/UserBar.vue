@@ -21,24 +21,25 @@ export default {
   props: ['logged_in'],
   data() {
     return{
-      token: '',
+      request: {token: '',},
     }
   },
   methods:{
     logout(){
       let token = this.$store.state.token;
-      fetch('/api/v1/auth/logout',{
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-          .then(res => res.json())
-          .then(res => {
-              this.$store.commit("changeToken", '');
-              this.$emit('logoutEvent')
-            }).catch(err => {
-              this.errors = err.response.data.data;
-            });
+      this.request.token = token;
+      axios.post('/api/v1/auth/logout',this.request,{
+                  headers: {
+                    'Authorization': `Bearer ${token}`
+                  }
+                }).then(res => {
+                    this.$store.commit("changeToken", '');
+                    this.$emit('logoutEvent');
+                    localStorage['token'] = '';
+                  }).catch(err => {
+                    console.log(err.response)
+                    this.errors = err.response.data.data;
+                  });
     }
 
   }

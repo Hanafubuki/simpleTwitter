@@ -46,11 +46,13 @@ export default {
     login(){
       axios.post('/api/v1/auth/login/',this.user
                   ).then(res => {
+                    console.log(res)
                     this.$store.commit("changeToken", res.data.token);
                     localStorage['token'] = res.data.token;
                     $('#Login').modal('hide');
                   }).catch(err => {
-                    this.errors = err.response.data.data;
+                    console.log(err.response)
+                    this.errors = err.response.data;
                   });
     }
   },
