@@ -15,6 +15,8 @@
 ## Introduction
 Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature. Has a simple and basic frontend implementation to show the functionality.
 
+<p align="center"><img src="ClassDiagram.png" width="400"></p>
+
 
 ## Technologies
 - VueJs 2.6.12
