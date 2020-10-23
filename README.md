@@ -30,6 +30,7 @@ To run this project:
 4. Create a database named "linkx" inside your MySQL Database *
 5. composer run-script first-initialization
 6. php artisan serve
+7. You can go to localhost:8000 to see the frontend.
 
 *In case you don't have MySQL/PHP installed, I recommend using XAMPP for a quick setup.
 
