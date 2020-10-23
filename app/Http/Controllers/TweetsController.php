@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Http\Resources\Tweet as TweetResource;
+use Illuminate\Support\Facades\Validator;
 
 class TweetsController extends Controller
 {
@@ -43,6 +44,12 @@ class TweetsController extends Controller
      */
     public function store(Request $request)
     {
+      //Check if tweet isn't blank
+      $validator = $this->validator($request->all());
+      if($validator->fails()){
+          return response(get_error(400, $validator->errors()->all()),400);
+      }
+
       $tweet = new Tweet;
       $tweet->author_id = auth('api')->user()->id;
       $tweet->text = $request->input('text');
@@ -62,6 +69,12 @@ class TweetsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //Check if tweet isn't blank
+        $validator = $this->validator($request->all());
+        if($validator->fails()){
+            return response(get_error(400, $validator->errors()->all()),400);
+        }
+
         $tweet = Tweet::findOrFail($id);
         if(!$tweet){
           return get_error(404);
@@ -92,6 +105,21 @@ class TweetsController extends Controller
         }
         $tweet->delete();
         return 204;
+    }
+
+
+    /**
+     * Get a validator for an incoming update request.
+     * Must insert old\current password.
+     * Password must be at least with length 8, with a special character and match the password_confirmation input.
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'text' => ['required'],
+        ]);
     }
 
 }

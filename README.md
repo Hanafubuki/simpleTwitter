@@ -5,6 +5,7 @@
 - **[Introduction](#introduction)**
 - **[Technologies](#technologies)**
 - **[Setup](#setup)**
+- **[APIs](#apis)**
 - **[Tests](#tests)**
 - **[Project Structure](#project-structure)**
 - **[Requirements Achieved](#requirements-achieved)**
@@ -30,10 +31,13 @@ To run this project:
 4. Create a database named "linkx" inside your MySQL Database *
 5. composer run-script first-initialization
 6. php artisan serve
-7. You can go to localhost:8000 to see the frontend.
+7. You can go to localhost:8000 to see the frontend
 
 *In case you don't have MySQL/PHP installed, I recommend using XAMPP for a quick setup.
 
+## APIs
+Check below the list of endpoints:
+* https://documenter.getpostman.com/view/11082955/TVYDfKf4
 
 ## Tests
 ### Add dummy data to DB
