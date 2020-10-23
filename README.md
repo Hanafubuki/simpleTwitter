@@ -15,7 +15,7 @@
 ## Introduction
 Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature. Has a simple and basic frontend implementation to show the functionality.
 
-<p align="center"><img src="ClassDiagram.png"></p>
+
 
 
 ## Technologies
@@ -50,6 +50,8 @@ php artisan test
 
 
 ## Project Structure
+<p align="center"><img src="ClassDiagram.png"></p>
+
 Used Laravel's official package [Passport](https://laravel.com/docs/8.x/passport) and header-based Token Bearer authentication scheme for user authentification.
 
 Created verification in the routes to check if user has authorization to access the APIs.
