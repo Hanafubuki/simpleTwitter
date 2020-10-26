@@ -15,7 +15,7 @@
 ## Introduction
 Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature. Has a simple and basic frontend implementation to show the functionality.
 
-
+[AWS deployment](http://twitter-linkx.ap-northeast-1.elasticbeanstalk.com/)
 
 
 ## Technologies
@@ -106,6 +106,7 @@ VueJs code can be found here: resources/js/components
 
 
 ## Things I would like to do
+Create the whole functionality of the twitter (likes, comments, attachments, etc).
 Create service/action classes instead of just one controller class for user and tweet, to consider scalability.
 
 Improve frontend to apply all functionalities.
