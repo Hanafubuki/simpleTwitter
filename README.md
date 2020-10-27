@@ -1,5 +1,5 @@
 # Simple Twitter
-<p><img src="SystemArchitecture.png" width="600"></p>
+<p><img src="System_Architecture.png" width="600"></p>
 
 ## Table of Contents
 - **[Introduction](#introduction)**
@@ -41,6 +41,8 @@ To run this project:
 Check below the list of endpoints:
 * https://documenter.getpostman.com/view/11082955/TVYDfKf4
 
+<p><img src="Postman.png" width="600"></p>
+
 ## Tests
 ### Add dummy data to DB
 php artisan db:seed
@@ -50,7 +52,7 @@ php artisan test
 
 
 ## Project Structure
-<p><img src="ClassDiagram.png" width="600"></p>
+<p><img src="Class_Diagram.png" width="600"></p>
 
 Used Laravel's official package [Passport](https://laravel.com/docs/8.x/passport) and header-based Token Bearer authentication scheme for user authentification.
 
