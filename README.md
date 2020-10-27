@@ -27,7 +27,7 @@ Cloud-based backend service that emulates functionality similar to Twitter's Twe
 
 ## Setup
 To run this project:
-1. Clone this project: git clone https://github.com/Hanafubuki/simpleTwitter.git
+1. Clone this project.
 2. cd simpleTwitter
 3. Make a copy of .env.example file and create a new file: .env
 4. Create a database named "linkx" inside your MySQL Database *
@@ -95,7 +95,7 @@ database/seeders
 tests/Feature
 
 ### Frontend code
-VueJs code can be found here: resources/js/components
+VueJs code can be found here: resources/js
 
 
 ## Requirements Achieved
