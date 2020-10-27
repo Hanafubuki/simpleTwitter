@@ -1,5 +1,5 @@
 # Simple Twitter
-<p><img src="SystemArchitecture.png" width="600"></p>
+<p><img src="SystemArchitecture2.png" width="600"></p>
 
 ## Table of Contents
 - **[Introduction](#introduction)**
@@ -50,7 +50,7 @@ php artisan test
 
 
 ## Project Structure
-<p><img src="ClassDiagram.png" width="600"></p>
+<p><img src="ClassDiagram2.png" width="600"></p>
 
 Used Laravel's official package [Passport](https://laravel.com/docs/8.x/passport) and header-based Token Bearer authentication scheme for user authentification.
 
