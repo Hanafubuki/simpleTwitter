@@ -28,7 +28,7 @@ To run this project:
 1. Clone this project.
 2. cd simpleTwitter
 3. Make a copy of .env.example file and create a new file: .env
-4. Create a database named "linkx" inside your MySQL Database *
+4. Create a database named "twitter" inside your MySQL Database *
 5. composer run-script first-initialization
 6. php artisan serve
 7. You can go to localhost:8000 to see the frontend
