@@ -8,8 +8,6 @@
 - **[APIs](#apis)**
 - **[Tests](#tests)**
 - **[Project Structure](#project-structure)**
-- **[Requirements Achieved](#requirements-achieved)**
-- **[Things I would like to do](#things-i-would-like-to-do)**
 
 
 ## Introduction
@@ -100,22 +98,5 @@ tests/Feature
 VueJs code can be found here: resources/js
 
 
-## Requirements Achieved
-* Architectural design diagram of the solution
-* Minimal backend design that achieves two things:
-    * Any user can create a public message
-    * Any user can read all messages
-
-
-## Things I would like to do
-Create more functionalitites of the twitter (likes, comments, attachments).
-
-Create service/action classes instead of just one controller class for user and tweet, to consider scalability. Inside of app/Http, I would create a folder called Services and would add a class for each of the controller to add the service/action functions. Inside of each function, I would add the code to create/update the database information.
-
-
-Improve frontend to apply all functionalities, creating a User Settings page to edit the user information. I would also add the functionallity to edit and delete tweets. Each user would also have their own profile page displaying all of their tweets.
-
-
 ## Sources
-- **[Assignment](README_assignment.md)**
 - **[Laravel Documentation](https://laravel.com/docs)**
