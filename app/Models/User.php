@@ -52,4 +52,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Tweet', 'author_id', 'id');
     }
+
+
+    public function comment()
+    {
+        return $this->hasMany('App\Models\Comment', 'author_id', 'id');
+    }
 }

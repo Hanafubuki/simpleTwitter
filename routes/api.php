@@ -41,6 +41,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/v1/users/{id}', 'App\Http\Controllers\UsersController@getOne');
     Route::put('/v1/users/{id}', 'App\Http\Controllers\UsersController@update');
     Route::delete('/v1/users/{id}', 'App\Http\Controllers\UsersController@destroy');
+
+    //Comments
+    Route::get('/v1/comments', 'App\Http\Controllers\CommentsController@get');
+    Route::post('/v1/comments', 'App\Http\Controllers\CommentsController@store');
+    Route::put('/v1/comments/{id}', 'App\Http\Controllers\CommentsController@update');
+    Route::delete('/v1/comments/{id}', 'App\Http\Controllers\CommentsController@destroy');
 });
 
 
