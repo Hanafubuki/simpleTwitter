@@ -2047,7 +2047,6 @@ Vue.component('Posts', __webpack_require__(/*! ./Posts.vue */ "./resources/js/co
         _this.updateStatus(res);
       })["catch"](function (err) {
         console.log(err);
-        console.log(err.response.data);
       });
     },
     updateStatus: function updateStatus(res) {
@@ -53093,8 +53092,8 @@ Vue.use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\simpleTwitter\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\simpleTwitter\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\simpleTwitterAWS\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\simpleTwitterAWS\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
