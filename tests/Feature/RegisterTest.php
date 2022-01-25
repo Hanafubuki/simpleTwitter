@@ -13,7 +13,7 @@ class RegisterTest extends TestCase
      *
      * @return void
      */
-     public function testsRegistersSuccessfully()
+     public function testRegistersSuccessfully()
      {
          $faker = \Faker\Factory::create();
          $payload = [
@@ -31,22 +31,13 @@ class RegisterTest extends TestCase
              ]);
      }
 
-     public function testsRequiresPasswordEmailUsernameAndName()
+     public function testRequiresPasswordEmailUsernameAndName()
     {
         $this->json('post', 'api/v1/auth/register')
-            ->assertStatus(400)
-            ->assertJson([
-              'message' => 'Bad Request',
-              'data' => [
-                "The name field is required.",
-                "The username field is required.",
-                'The email field is required.',
-                "The password field is required.",
-              ],
-            ]);
+            ->assertStatus(422);
     }
 
-    public function testsRequirePasswordConfirmation()
+    public function testRequirePasswordConfirmation()
     {
         $payload = [
             'name' => 'John',
@@ -56,12 +47,6 @@ class RegisterTest extends TestCase
         ];
 
         $this->json('post', 'api/v1/auth/register', $payload)
-            ->assertStatus(400)
-            ->assertJson([
-              'message' => 'Bad Request',
-              'data' => [
-                "The password confirmation does not match.",
-              ],
-            ]);
+            ->assertStatus(422);
     }
 }

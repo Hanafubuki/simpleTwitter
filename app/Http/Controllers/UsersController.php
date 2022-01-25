@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
@@ -33,18 +34,12 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \App\Http\Resources\User
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
       $user = User::findOrFail(auth('api')->user()->id);
 
       $notCorrectUser = $this->checkCorrectUser($user, $id);
       if($notCorrectUser) return $notCorrectUser;
-
-      //Check if all the user information is entered correct
-      $validator = $this->updateValidator($request->all());
-      if($validator->fails() OR (!Hash::check($request['current_password'], $user->password))){
-          return response(get_error(400, $validator->errors()->all()),400);
-      }
 
       $user->name = $request['name'];
       $user->password = Hash::make($request['password']);
@@ -70,27 +65,10 @@ class UsersController extends Controller
       $user->tweet()->where('author_id', $id)->delete();
 
       //Delete login token from database
-      $token = auth('api')->user()->token()->revoke();
+      auth('api')->user()->token()->revoke();
       $user->delete();
 
       return 204;
-    }
-
-
-    /**
-     * Get a validator for an incoming update request.
-     * Must insert old\current password.
-     * Password must be at least with length 8, with a special character and match the password_confirmation input.
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function updateValidator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'current_password' => ['required'],
-            'password' => ['required', 'min:8','regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[@&!$#%]).*$/', 'confirmed'],
-        ]);
     }
 
 

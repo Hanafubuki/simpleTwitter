@@ -17,14 +17,7 @@ class LoginTest extends TestCase
     public function testRequiresUsernameAndLogin()
     {
         $this->json('POST', 'api/v1/auth/login')
-            ->assertStatus(400)
-            ->assertJson([
-                'message' => 'Bad Request',
-                'data' => [
-                  "The username field is required.",
-                  "The password field is required."
-                ],
-            ]);
+            ->assertStatus(422);
     }
 
 

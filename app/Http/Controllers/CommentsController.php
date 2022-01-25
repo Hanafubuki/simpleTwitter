@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateCommentRequest;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Http\Resources\Comment as CommentResource;
@@ -27,12 +28,11 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateCommentRequest $request)
     {
         $comment = new Comment;
-        $comment->text = $request->text;
+        $comment->fill($request->validated());
         $comment->author_id = auth('api')->user()->id;
-        $comment->tweet_id = $request->tweet_id;
 
         if($comment->save()){
           return new CommentResource($comment);
@@ -48,13 +48,8 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateCommentRequest $request, $id)
     {
-        //Check if tweet isn't blank
-        $validator = $this->validator($request->all());
-        if($validator->fails()){
-            return response(get_error(400, $validator->errors()->all()),400);
-        }
         $comment = Comment::find($id);
         $comment->text = $request->text;
         if($comment->save()){
@@ -81,12 +76,5 @@ class CommentsController extends Controller
         }
         $comment->delete();
         return 204;
-    }
-
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'text' => ['required'],
-        ]);
     }
 }
