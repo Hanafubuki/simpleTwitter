@@ -13,8 +13,6 @@
 ## Introduction
 Cloud-based backend service that emulates functionality similar to Twitter's Tweeting feature. Has a simple and basic frontend implementation to show the functionality.
 
-[AWS deployment](http://twitter-linkx.ap-northeast-1.elasticbeanstalk.com/)
-
 
 ## Technologies
 - VueJs 2.6.12
