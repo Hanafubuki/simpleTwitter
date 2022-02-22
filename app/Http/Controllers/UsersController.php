@@ -17,9 +17,8 @@ class UsersController extends Controller
      *
      * @return \App\Http\Resources\User
      */
-    public function getOne($id)
+    public function getOne(User $user)
     {
-      $user = User::find($id);
       if(!$user){
         return response(get_error(404),404);
       }

@@ -48,9 +48,8 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateCommentRequest $request, $id)
+    public function update(StoreUpdateCommentRequest $request, Comment $comment)
     {
-        $comment = Comment::find($id);
         $comment->text = $request->text;
         if($comment->save()){
           return new CommentResource($comment);
@@ -65,9 +64,8 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        $comment = Comment::findOrFail($id);
         if(!$comment){
           return get_error();
         }

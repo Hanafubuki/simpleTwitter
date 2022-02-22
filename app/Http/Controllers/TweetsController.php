@@ -64,10 +64,9 @@ class TweetsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateTweetRequest $request, $id)
+    public function update(StoreUpdateTweetRequest $request, Tweet $tweet)
     {
-
-        $tweet = Tweet::findOrFail($id);
+        //$tweet = Tweet::findOrFail($id);
         if(!$tweet){
           return get_error(404);
         }
@@ -87,9 +86,8 @@ class TweetsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tweet $tweet)
     {
-        $tweet = Tweet::findOrFail($id);
         if(!$tweet){
           return get_error(404);
         }
