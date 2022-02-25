@@ -34,7 +34,7 @@ class CommentsController extends Controller
         $comment->fill($request->validated());
         $comment->author_id = auth('api')->user()->id;
 
-        if($comment->save()){
+        if($comment->save()) {
           return new CommentResource($comment);
         }
         return get_error();
@@ -51,7 +51,7 @@ class CommentsController extends Controller
     public function update(StoreUpdateCommentRequest $request, Comment $comment)
     {
         $comment->text = $request->text;
-        if($comment->save()){
+        if($comment->save()) {
           return new CommentResource($comment);
         }
         return get_error();
@@ -66,10 +66,10 @@ class CommentsController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        if(!$comment){
+        if(!$comment) {
           return get_error();
         }
-        if(!isCorrectUserApi($comment->author_id)){
+        if(!isCorrectUserApi($comment->author_id)) {
           return get_error(401);
         }
         $comment->delete();

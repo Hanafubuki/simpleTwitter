@@ -19,7 +19,7 @@ class UsersController extends Controller
      */
     public function getOne(User $user)
     {
-      if(!$user){
+      if(!$user) {
         return response(get_error(404),404);
       }
       return new UserResource($user);
@@ -38,7 +38,9 @@ class UsersController extends Controller
       $user = User::findOrFail(auth('api')->user()->id);
 
       $notCorrectUser = $this->checkCorrectUser($user, $id);
-      if($notCorrectUser) return $notCorrectUser;
+      if($notCorrectUser) {
+        return $notCorrectUser;
+      }
 
       $user->name = $request['name'];
       $user->password = Hash::make($request['password']);
@@ -58,7 +60,9 @@ class UsersController extends Controller
       $user = User::findOrFail(auth('api')->user()->id);
 
       $notCorrectUser = $this->checkCorrectUser($user, $id);
-      if($notCorrectUser) return $notCorrectUser;
+      if($notCorrectUser) {
+          return $notCorrectUser;
+      }
 
       //Delete tweets from user
       $user->tweet()->where('author_id', $id)->delete();
@@ -78,12 +82,12 @@ class UsersController extends Controller
      */
     protected function checkCorrectUser(User $user, int $id){
       //Check if user exists/Authorization token is correct
-      if(!$user){
+      if(!$user) {
         return response(get_error(404),404);
       }
 
       //Check if user updating is the same user logged in
-      if(!isCorrectUserApi($id)){
+      if(!isCorrectUserApi($id)) {
         return response(get_error(401),401);
       }
 

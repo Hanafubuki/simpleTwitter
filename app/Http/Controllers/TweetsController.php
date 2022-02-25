@@ -19,7 +19,7 @@ class TweetsController extends Controller
     public function getFromUser(int $id)
     {
       $tweet = Tweet::where('author_id',$id)->orderBy('created_at', 'desc')->paginate(10);
-      if(count($tweet) == 0){
+      if(count($tweet) == 0) {
         return get_error(404);
       }
       return TweetResource::collection($tweet);
@@ -52,7 +52,7 @@ class TweetsController extends Controller
       $tweet->author_id = auth('api')->user()->id;
       $tweet->text = $validated['text'];
 
-      if($tweet->save()){
+      if($tweet->save()) {
         return new TweetResource($tweet);
       }
       return get_error();
@@ -75,7 +75,7 @@ class TweetsController extends Controller
         $validated = $request->validated();
         $tweet->text = $validated['text'];
 
-        if($tweet->save()){
+        if($tweet->save()) {
           return new TweetResource($tweet);
         }
         return get_error();
@@ -89,10 +89,10 @@ class TweetsController extends Controller
      */
     public function destroy(Tweet $tweet)
     {
-        if(!$tweet){
+        if(!$tweet) {
           return get_error(404);
         }
-        if(!isCorrectUserApi($tweet->author_id)){
+        if(!isCorrectUserApi($tweet->author_id)) {
           return get_error(401);
         }
         $tweet->delete();
