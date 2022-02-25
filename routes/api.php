@@ -18,35 +18,25 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['middleware' => ['cors', 'json.response']], function () {
     //Authorization
-    Route::post('/v1/auth/register', 'App\Http\Controllers\AuthsController@register');
-    Route::post('/v1/auth/login', 'App\Http\Controllers\AuthsController@login');
+    Route::post('/v1/auth/register', 'AuthsController@register');
+    Route::post('/v1/auth/login', 'AuthsController@login');
 });
 
 
 /*
 * Protected routes that user needs to be logged in (pass login token)
 */
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->prefix('v1')->namespace('App\Http\Controllers')->group(function () {
     //Authorization
-    Route::post('/v1/auth/logout', 'App\Http\Controllers\AuthsController@logout');
+    Route::post('/auth/logout', 'AuthsController@logout');
 
-    //Tweets
-    Route::get('/v1/tweets/{id}', 'App\Http\Controllers\TweetsController@getFromUser');
-    Route::get('/v1/tweets', 'App\Http\Controllers\TweetsController@getAll');
-    Route::post('/v1/tweets', 'App\Http\Controllers\TweetsController@store');
-    Route::put('/v1/tweets/{tweet}', 'App\Http\Controllers\TweetsController@update');
-    Route::delete('/v1/tweets/{tweet}', 'App\Http\Controllers\TweetsController@destroy');
-
-    //Users
-    Route::get('/v1/users/{user}', 'App\Http\Controllers\UsersController@getOne');
-    Route::put('/v1/users/{id}', 'App\Http\Controllers\UsersController@update');
-    Route::delete('/v1/users/{id}', 'App\Http\Controllers\UsersController@destroy');
-
-    //Comments
-    Route::get('/v1/comments', 'App\Http\Controllers\CommentsController@get');
-    Route::post('/v1/comments', 'App\Http\Controllers\CommentsController@store');
-    Route::put('/v1/comments/{comment}', 'App\Http\Controllers\CommentsController@update');
-    Route::delete('/v1/comments/{comment}', 'App\Http\Controllers\CommentsController@destroy');
+    Route::apiResources([
+        'tweets' => TweetsController::class,
+        'users' => UsersController::class,
+        'comments' => CommentsController::class,
+    ]);
+    Route::get('tweets/{id}', 'TweetsController@getFromUser');
+    Route::get('/comments', 'CommentsController@get');
 });
 
 
@@ -56,7 +46,7 @@ Route::middleware('auth:api')->group(function () {
 Route::fallback(function(){
     return response()->json(
       [
-        'message' => 'Page Not Found.'
+        'message' => 'API Not Found.'
       ],
       404);
 });

@@ -21,6 +21,10 @@ class CommentsController extends Controller
           return CommentResource::collection($comments);
     }
 
+    public function show(Comment $comment)
+    {
+        return new CommentResource($comment);
+    }
 
     /**
      * Store a newly created resource in storage.

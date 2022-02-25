@@ -17,7 +17,7 @@ class UsersController extends Controller
      *
      * @return \App\Http\Resources\User
      */
-    public function getOne(User $user)
+    public function show(User $user)
     {
       if(!$user) {
         return response(get_error(404),404);
