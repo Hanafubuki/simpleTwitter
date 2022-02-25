@@ -33,7 +33,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \App\Http\Resources\User
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request, int $id)
     {
       $user = User::findOrFail(auth('api')->user()->id);
 
@@ -53,7 +53,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
       $user = User::findOrFail(auth('api')->user()->id);
 
@@ -76,7 +76,7 @@ class UsersController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function checkCorrectUser($user, $id){
+    protected function checkCorrectUser(User $user, int $id){
       //Check if user exists/Authorization token is correct
       if(!$user){
         return response(get_error(404),404);

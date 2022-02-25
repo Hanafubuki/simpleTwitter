@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Http\Resources\Tweet as TweetResource;
 use Illuminate\Support\Facades\Validator;
+use app\Http\Controllers\Collection;
 
 class TweetsController extends Controller
 {
@@ -15,7 +16,7 @@ class TweetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getFromUser($id)
+    public function getFromUser(int $id)
     {
       $tweet = Tweet::where('author_id',$id)->orderBy('created_at', 'desc')->paginate(10);
       if(count($tweet) == 0){
